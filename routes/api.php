@@ -1,8 +1,26 @@
 <?php 
 
-use App\Models\Task;
+use App\Models\Tournament;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/tasks', function () {
-    return Task::all();
+Route::get('/tournaments', function () {
+    return Tournament::all();
+});
+
+Route::get('/tournament/{id}', function (Request $request) {
+    return Tournament::findOrFail($request->id);
+});
+
+Route::middleware('api.password')->group(function () {    
+    Route::post('/tournaments', function (Request $request) {
+        return Tournament::create([
+            'name' => $request->name,
+            // 'date' => today(),
+            // 'courts' => 0,
+            // 'players' => '[]',
+            // 'games' => '[]',
+            'finished' => false,
+        ]);
+    });
 });
