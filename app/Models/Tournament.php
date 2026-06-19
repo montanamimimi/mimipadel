@@ -14,4 +14,9 @@ class Tournament extends Model
         'games',
         'finished',
     ];
+
+    protected $attributes = [
+        'players' => '[]',
+        'games' => '[]',
+    ];    
 }

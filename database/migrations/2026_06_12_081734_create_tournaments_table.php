@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('tournaments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->date('date')->default(DB::raw('CURRENT_DATE'));
+            $table->date('date');
             $table->integer('courts')->default(0);
-            $table->json('players')->default('[]');
-            $table->json('games')->default('[]');
+            $table->json('players')->nullable();
+            $table->json('games')->nullable();
             $table->boolean('finished')->default(false);            
             $table->timestamps();
         });

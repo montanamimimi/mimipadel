@@ -16,7 +16,7 @@ Route::middleware('api.password')->group(function () {
     Route::post('/tournaments', function (Request $request) {
         return Tournament::create([
             'name' => $request->name,
-            // 'date' => today(),
+            'date' => now()->toDateString(),
             // 'courts' => 0,
             // 'players' => '[]',
             // 'games' => '[]',
