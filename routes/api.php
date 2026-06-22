@@ -3,6 +3,7 @@
 use App\Models\Tournament;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TournamentController;
 
 Route::get('/tournaments', function () {
     return Tournament::all();
@@ -17,10 +18,15 @@ Route::middleware('api.password')->group(function () {
         return Tournament::create([
             'name' => $request->name,
             'date' => now()->toDateString(),
-            // 'courts' => 0,
-            // 'players' => '[]',
-            // 'games' => '[]',
             'finished' => false,
         ]);
     });
+});
+
+Route::middleware('api.password')->group(function() {
+    Route::put('/tournaments/{tournament}', [TournamentController::class, 'update']);
+});
+
+Route::middleware('api.password')->group(function() {
+    Route::delete('/tournaments/{tournament}', [TournamentController::class, 'delete']);
 });
