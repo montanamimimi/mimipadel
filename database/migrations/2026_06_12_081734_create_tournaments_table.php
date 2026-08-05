@@ -12,13 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tournaments', function (Blueprint $table) {
-            $table->id();
+            $table->ulid('id')->primary();
+            $table->foreignUlid('user_id')->constrained();
             $table->string('name');
             $table->date('date');
             $table->integer('courts')->default(0);
-            $table->json('players')->nullable();
-            $table->json('games')->nullable();
-            $table->boolean('finished')->default(false);            
+            $table->integer('points')->default(0);            
+            $table->boolean('started')->default(false);  
+            $table->boolean('finished')->default(false);           
+            $table->boolean('mixer')->default(false);
             $table->timestamps();
         });
     }

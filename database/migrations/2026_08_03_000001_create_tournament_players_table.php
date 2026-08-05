@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('tournament_players', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->string('firebase_uid')->nullable()->unique();
-            $table->string('name')->nullable();
-            $table->string('email')->unique()->nullable();
-            $table->string('photo_url')->nullable();
-            $table->boolean('is_claimed')->default(false);
+            $table->foreignUlid('tournament_id')->constrained()->cascadeOnDelete();
+            $table->foreignUlid('user_id')
+                ->nullable()
+                ->constrained()
+                ->nullOnDelete();
+            $table->string('name');
             $table->timestamps();
         });
-
     }
 
     /**
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('tournament_players');
     }
 };

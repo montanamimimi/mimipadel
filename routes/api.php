@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TournamentController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Log;
 
 Route::middleware('firebase')->group(function () {
     Route::get('/me', [UserController::class, 'me']);
@@ -17,14 +18,9 @@ Route::middleware('firebase')->group(function () {
     Route::get('/tournament/{id}', function (Request $request) {
         return Tournament::findOrFail($request->id);
     });
+    
+    Route::post('/tournaments', [TournamentController::class, 'create']);
 
-    Route::post('/tournaments', function (Request $request) {
-        return Tournament::create([
-            'name' => $request->name,
-            'date' => now()->toDateString(),
-            'finished' => false,
-        ]);
-    });    
 });
 
 
