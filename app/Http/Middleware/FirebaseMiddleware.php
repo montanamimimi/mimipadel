@@ -35,14 +35,14 @@ class FirebaseMiddleware
         $verifiedToken = $this->firebaseAuth->verifyIdToken($token);
 
         $firebaseUid = $verifiedToken->claims()->get('sub');
+        $email = $verifiedToken->claims()->get('email');
         
-        $user = User::firstOrCreate(
+        $user = User::updateOrCreate(
             [
                 'firebase_uid' => $firebaseUid,
             ],
             [
-                'name' => null,
-                'email' => null,
+                'email' => $email,
             ]
         );
 

@@ -11,10 +11,6 @@ class UserController extends Controller
     public function me(Request $request)
     {
 
-        // Log::debug('An informational message.');
-        // Log::debug($request);
-        // Log::debug(Auth::user());
-
         return response()->json([
             'user' => Auth::user(),
         ]);

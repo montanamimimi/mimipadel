@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignUlid('user_id')->constrained();
             $table->string('name');
             $table->date('date');
+            $table->string('format')->default('mexicano');
             $table->integer('courts')->default(0);
             $table->integer('points')->default(0);            
             $table->boolean('started')->default(false);  

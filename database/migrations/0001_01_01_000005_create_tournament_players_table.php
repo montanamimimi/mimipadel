@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tournament_players', function (Blueprint $table) {
             $table->ulid('id')->primary();
             $table->foreignUlid('tournament_id')->constrained()->cascadeOnDelete();
-            $table->foreignUlid('user_id')
+            $table->foreignUlid('player_id')
                 ->nullable()
                 ->constrained()
                 ->nullOnDelete();

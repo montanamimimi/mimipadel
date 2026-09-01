@@ -4,6 +4,7 @@ use App\Models\Tournament;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TournamentController;
+use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Log;
 
@@ -20,6 +21,8 @@ Route::middleware('firebase')->group(function () {
     });
     
     Route::post('/tournaments', [TournamentController::class, 'create']);
+
+    Route::post('/players', [PlayerController::class, 'create']);
 
 });
 

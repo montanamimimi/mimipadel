@@ -14,11 +14,13 @@ class TournamentController extends Controller
             'id' => ['required', 'string'],
             'name' => ['required', 'string'],
             'date' => ['required', 'date_format:Y-m-d'],
+            'format' => ['required', 'string'],
             'courts' => ['required', 'integer', 'min:1'],
             'points' => ['required', 'integer', 'min:1'],
         ]);
 
         $validated['user_id'] = Auth::user()->id;
+        $validated['mixer'] = true;
 
         $tournament = Tournament::create($validated);
 
