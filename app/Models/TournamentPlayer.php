@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Player extends Model
+class TournamentPlayer extends Model
 {    
 
     public $incrementing = false;
@@ -12,8 +12,9 @@ class Player extends Model
     
     protected $fillable = [
         'id',
-        'user_id',
-        'name',
+        'tournament_id',
+        'player_id',
+        'name',        
     ];
 
 }

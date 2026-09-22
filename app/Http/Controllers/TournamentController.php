@@ -8,8 +8,16 @@ use Illuminate\Support\Facades\Auth;
 
 class TournamentController extends Controller
 {
+    public function index() {
+        return Tournament::all();
+    }
 
-    public function create(Request $request) {
+    public function show(Tournament $tournament)
+    {
+        return $tournament;
+    }
+
+    public function store(Request $request) {
         $validated = $request->validate([
             'id' => ['required', 'string'],
             'name' => ['required', 'string'],
@@ -31,6 +39,10 @@ class TournamentController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string'],
             'courts' => ['required', 'integer', 'min:1'],
+            'points' => ['required', 'integer', 'min:1'],
+            'started' => ['required', 'boolean'],
+            'finished' => ['required', 'boolean'],
+            'mixer' => ['required', 'boolean'],
         ]);
 
         $tournament->update($validated);
@@ -38,7 +50,7 @@ class TournamentController extends Controller
         return response()->json($tournament);
     }
 
-    public function delete(Request $request, Tournament $tournament) {
+    public function destroy(Tournament $tournament) {
 
         $tournament->delete($tournament);
 
