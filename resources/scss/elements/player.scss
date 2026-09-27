@@ -1,0 +1,12 @@
+.player {
+    border: 1px solid gray;
+    padding: 16px;
+
+    &__title {
+        font-size: 24px;
+    }
+
+    &__link {
+        text-decoration: underline;
+    }
+}
