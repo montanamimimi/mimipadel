@@ -1,9 +1,5 @@
 {
   "resources/css/app.css": {
-<<<<<<< HEAD
-    "file": "assets/app-BiqjKdjH.css",
-    "src": "resources/css/app.css",
-=======
     "file": "assets/app-DamJpsnH.css",
     "src": "resources/css/app.css"
   },
@@ -16,7 +12,6 @@
   "resources/scss/app.scss": {
     "file": "assets/app-CXjuJ4CP.css",
     "src": "resources/scss/app.scss",
->>>>>>> develop
     "isEntry": true,
     "name": "app",
     "names": [
