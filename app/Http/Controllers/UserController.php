@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    protected $fillable = [
+        'firebase_uid',
+        'name',
+        'email',
+    ];
+
     public function me(Request $request)
     {
 
