@@ -28,7 +28,7 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->unsignedSmallInteger('old_rating');
-            $table->unsignedTinyInteger('rating_change');
+            $table->smallInteger('rating_change');
             $table->unsignedSmallInteger('new_rating');
             $table->timestamps();
         });
