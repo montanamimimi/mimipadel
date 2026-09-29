@@ -9,6 +9,7 @@ use App\Models\TournamentPlayer;
 use App\Models\TournamentGame;
 use App\Models\PlayerRatingHistory;
 use App\Services\EloRatingService;
+use Illuminate\Support\Facades\Log;
 
 class TournamentPage extends Component
 {
@@ -81,6 +82,13 @@ class TournamentPage extends Component
             $this->checkPlayersReady();
         }
 
+    }
+
+    public function removePlayer($id) {
+        TournamentPlayer::findOrFail($id)->delete();
+        $this->tournamentPlayers = $this->tournamentPlayers->reject(fn ($item) => $item->id == $id);
+        $this->checkPlayersReady();
+      //  dd($this->ready);
     }
 
     // manual mode now !!! don't realy generating tournament games
@@ -177,6 +185,8 @@ class TournamentPage extends Component
     private function checkPlayersReady() {
         if (count($this->tournamentPlayers) == $this->tournament->courts * 4) {
             $this->ready = true;
+        } else {
+            $this->ready = false;
         }
     }
 
@@ -190,6 +200,7 @@ class TournamentPage extends Component
         } else {           
             $this->tournamentPlayers = TournamentPlayer::with('player')
             ->where('tournament_id', $tournament->id)
+            ->latest()
             ->get();
 
             $this->tournamentGames = TournamentGame::where('tournament_id', $tournament->id)->get();
