@@ -35,6 +35,7 @@ class TournamentPage extends Component
     public $side2score = null;
     public $round = null;
     public $error = false;
+    public $leaderboard = [];
 
     public string $mode = 'view';
 
@@ -92,7 +93,8 @@ class TournamentPage extends Component
 
     public function deleteGame($id) {
         TournamentGame::findOrFail($id)->delete();
-        $this->tournamentGames = $this->tournamentGames->reject(fn ($item) => $item->id == $id);        
+        $this->tournamentGames = $this->tournamentGames->reject(fn ($item) => $item->id == $id);   
+        $this->populateLeaderboard();     
     }    
 
     // manual mode now !!! don't realy generating tournament games
@@ -134,6 +136,7 @@ class TournamentPage extends Component
 
             $this->tournamentGames->push($game);
             $this->changePlayerRating($game->id);
+            $this->populateLeaderboard();
 
             if ((count($this->tournamentGames) % $this->tournament->courts) == 0) {
                 $this->round++;
@@ -213,6 +216,8 @@ class TournamentPage extends Component
 
             $this->tournamentGames = TournamentGame::where('tournament_id', $tournament->id)->get();
 
+            $this->populateLeaderboard();
+
             if ((count($this->tournamentGames) % $this->tournament->courts) == 0) {
                 $this->round++;
             }
@@ -227,6 +232,34 @@ class TournamentPage extends Component
                 $this->mode = "play";
             }
         }
+
+    }
+
+    private function populateLeaderboard() {
+
+        $arr = [];
+        $this->leaderboard = [];
+
+        foreach ($this->tournamentPlayers as $player) {
+            $arr[$player->id] = 0;
+        }        
+
+        foreach ($this->tournamentGames as $game) {
+            $arr[$game->side1_player1_id] += $game->side_1_score;
+            $arr[$game->side1_player2_id] += $game->side_1_score;
+            $arr[$game->side2_player1_id] += $game->side_2_score;
+            $arr[$game->side2_player2_id] += $game->side_2_score;
+        }
+
+        
+        foreach ($this->tournamentPlayers as $player) {
+            array_push($this->leaderboard, [
+                'name' => $player->name,
+                'score' => $arr[$player->id]
+            ]);
+        }       
+
+        usort($this->leaderboard, fn($a, $b) => $b['score'] <=> $a['score']);
 
     }
 
