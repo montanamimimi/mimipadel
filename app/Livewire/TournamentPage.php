@@ -77,7 +77,7 @@ class TournamentPage extends Component
                 'name' => $player->name,
             ]);
 
-            $this->tournamentPlayers->push($tplayer);
+            $this->tournamentPlayers->prepend($tplayer);
 
             $this->checkPlayersReady();
         }
@@ -88,8 +88,12 @@ class TournamentPage extends Component
         TournamentPlayer::findOrFail($id)->delete();
         $this->tournamentPlayers = $this->tournamentPlayers->reject(fn ($item) => $item->id == $id);
         $this->checkPlayersReady();
-      //  dd($this->ready);
     }
+
+    public function deleteGame($id) {
+        TournamentGame::findOrFail($id)->delete();
+        $this->tournamentGames = $this->tournamentGames->reject(fn ($item) => $item->id == $id);        
+    }    
 
     // manual mode now !!! don't realy generating tournament games
 
@@ -97,6 +101,10 @@ class TournamentPage extends Component
         $this->tournament->started = true;
         $this->tournament->save();        
         $this->mode = "play";
+        $this->tournamentPlayers = TournamentPlayer::with('player')
+        ->where('tournament_id', $this->tournament->id)
+        ->orderBy('name')
+        ->get();
     }
 
     public function addTournamentGame() {
@@ -200,7 +208,7 @@ class TournamentPage extends Component
         } else {           
             $this->tournamentPlayers = TournamentPlayer::with('player')
             ->where('tournament_id', $tournament->id)
-            ->latest()
+            ->orderBy('name')
             ->get();
 
             $this->tournamentGames = TournamentGame::where('tournament_id', $tournament->id)->get();

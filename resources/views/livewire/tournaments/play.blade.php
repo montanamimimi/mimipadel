@@ -2,7 +2,7 @@
     <div>
         <div>
             <label for="round" class="block text-sm font-medium text-gray-700">
-                ROUND
+                ROUND ID
             </label>
         </div>
         <div>
@@ -54,22 +54,7 @@
                 </select>
             </div>
         </div>
-        <div>
-            <div>
-                <label for="side1score" class="block text-sm font-medium text-gray-700">
-                    side 1 score
-                </label>
-            </div>
-            <div>
-                <input 
-                    id="side1score" 
-                    wire:model="side1score" 
-                    type="number"
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm
-                    focus:border-indigo-500 focus:ring-indigo-500"
-                >
-            </div>
-        </div>
+
         <div>
             <div class="mb-2">
                 <label for="side2player1id" class="block text-sm font-medium text-gray-700">
@@ -108,7 +93,23 @@
                 </select>
             </div>
         </div>
-                <div>
+        <div>
+            <div>
+                <label for="side1score" class="block text-sm font-medium text-gray-700">
+                    side 1 score
+                </label>
+            </div>
+            <div>
+                <input 
+                    id="side1score" 
+                    wire:model="side1score" 
+                    type="number"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm
+                    focus:border-indigo-500 focus:ring-indigo-500"
+                >
+            </div>
+        </div>        
+        <div>
             <div>
                 <label for="side2score" class="block text-sm font-medium text-gray-700">
                     side 2 score
@@ -126,37 +127,49 @@
         </div>        
     </div>
     <div>
-        <button
+        <div
             type="button"
             wire:click="addTournamentGame"
-            class="px-4 py-2 bg-indigo-600 text-white rounded-md
+            class="px-4 py-2 bg-indigo-600 text-white rounded-md mb-6
                 hover:bg-indigo-700"
         >
             Add game
-        </button>
+        </div>
     </div>
 
     @if($error)
         <div class="text-red-800 mt-6">Something wrong</div>
-    @endif
+    @endif    
 
-    <div class="games flex flex-col gap-4">
-        @foreach ($tournamentGames as $key => $game)     
-            <div class="game px-4 py-2">
+    <div class="games">
+        @foreach ($tournamentGames as $key => $game)
+            
+            @if ($key === 0 || $game->round !== $tournamentGames[$key - 1]->round)
+                <div class="round">
                 <h4>Round {{ $game->round + 1 }}</h4>
-                <div>
-                {{ $tournamentPlayers->firstWhere('id', $game->side1_player1_id)?->player?->name }}
-                & 
-                {{ $tournamentPlayers->firstWhere('id', $game->side1_player2_id)?->player?->name }}
-                {{ $game->side_1_score}}
+            @endif            
+                <div class="game">                
+                    
+                    <div class="game__test">
+                    {{ $tournamentPlayers->firstWhere('id', $game->side1_player1_id)?->player?->name }}
+                    & 
+                    {{ $tournamentPlayers->firstWhere('id', $game->side1_player2_id)?->player?->name }}
+                    {{ $game->side_1_score}}
+                    </div>
+                    <div>
+                    {{ $tournamentPlayers->firstWhere('id', $game->side2_player1_id)?->player?->name }}
+                    & 
+                    {{ $tournamentPlayers->firstWhere('id', $game->side2_player2_id)?->player?->name }}
+                    {{ $game->side_2_score}}
+                    </div>
+                    <div wire:click="deleteGame('{{ $game->id }}')" class="game__delete">
+                        delete game
+                    </div>
                 </div>
-                <div>
-                {{ $tournamentPlayers->firstWhere('id', $game->side2_player1_id)?->player?->name }}
-                & 
-                {{ $tournamentPlayers->firstWhere('id', $game->side2_player2_id)?->player?->name }}
-                {{ $game->side_2_score}}
+            @if ($key === $tournamentGames->count() - 1 ||
+                $game->round !== $tournamentGames[$key + 1]->round)
                 </div>
-            </div>
+            @endif
         @endforeach
     </div>
 

@@ -1,0 +1,28 @@
+@use '../base' as *; 
+
+.games {
+
+    display: flex;
+    gap: 16px;
+
+    .round {
+        border: 1px solid $borderPrimary;
+        padding: 8px;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }    
+
+    .game {
+        background-color: $orange;
+        padding: 8px;
+        border-radius: 4px;
+
+        &__delete {
+            font-size: 12px;
+            text-decoration: underline;
+        }
+    }    
+
+}

@@ -38,10 +38,10 @@
     <h2>Players List</h2>
     <div class="players-list">
 
-        @foreach ($tournamentPlayers as $tplayer)
+        @foreach ($tournamentPlayers as $key => $tplayer)
             <div class="players-list__item">
                 <div class="players-list__name">
-                    {{ $tplayer->name }}
+                    {{ $key + 1 }}. {{ $tplayer->name }}
                 </div>
                 <div wire:click="removePlayer('{{ $tplayer->id }}')" class="players-list__delete">
                     X
