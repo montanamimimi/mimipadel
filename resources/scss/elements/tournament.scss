@@ -10,3 +10,22 @@
         text-decoration: underline;
     }
 }
+
+.players-list {
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 48px;
+
+    &__item {
+        border: 1px solid gray;
+        padding: 8px 16px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__delete {
+        cursor: pointer;
+    }
+}
