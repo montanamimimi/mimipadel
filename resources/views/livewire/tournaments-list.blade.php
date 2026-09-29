@@ -5,7 +5,11 @@
 
     <div class="mb-6 flex flex-col gap-4">
         @foreach( $tournaments as $tournament )
-            <div class="tournament mb-6 flex flex-col gap-2">
+            <div class="tournament
+            @if ($tournament->finished)
+            tournament--finished
+            @endif
+            ">
                 <div class="tournament__title">{{ $tournament->name }}</div>
                 <div>{{ $tournament->date }}</div>
                 <div>

@@ -1,6 +1,17 @@
+@use '../base' as *; 
+
 .tournament {
     border: 1px solid gray;
+    border-radius: 8px;
     padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    &--finished {
+        border: unset;
+        background-color: $backgroundPrimary;
+    }
 
     &__title {
         font-size: 24px;

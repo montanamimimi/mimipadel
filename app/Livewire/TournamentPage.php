@@ -36,6 +36,7 @@ class TournamentPage extends Component
     public $round = null;
     public $error = false;
     public $leaderboard = [];
+    public $finished;
 
     public string $mode = 'view';
 
@@ -64,6 +65,13 @@ class TournamentPage extends Component
             'mixer' => $this->mixer,
         ]);
 
+        return redirect()->route('tournaments.index');
+    }
+
+    public function updateTournamentFinished()
+    {       
+        $this->tournament->finished = $this->finished;
+        $this->tournament->save();
         return redirect()->route('tournaments.index');
     }
 
@@ -209,6 +217,8 @@ class TournamentPage extends Component
         if (!$tournament) {
             $this->mode = 'create';
         } else {           
+            $this->finished = $this->tournament->finished;
+
             $this->tournamentPlayers = TournamentPlayer::with('player')
             ->where('tournament_id', $tournament->id)
             ->orderBy('name')

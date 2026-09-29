@@ -1,5 +1,11 @@
 <div>
-    <h1>Tournament</h1>
+    <h1>
+        @if($tournament)
+        {{ $tournament->name }}
+        @else
+        Tournament
+        @endif
+    </h1>
     
     @switch($mode)
 

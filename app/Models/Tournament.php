@@ -23,4 +23,8 @@ class Tournament extends Model
         'finished',
         'mixer',
     ];
+
+    protected $casts = [
+        'finished' => 'boolean',
+    ];    
 }

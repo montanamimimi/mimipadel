@@ -183,5 +183,18 @@
             @endforeach
         </div>
     @endif
+        
+    <div class="mt-6">
+        <label for="finished">Tournament finished?</label>        
+        <input type="checkbox" wire:model="finished">
+        <div
+            type="button"
+            wire:click="updateTournamentFinished"
+            class="px-4 py-2 bg-indigo-600 text-white rounded-md mt-4 mb-6
+                hover:bg-indigo-700"
+        >
+            Update 
+        </div>        
+    </div>
 
 </div>
