@@ -10,7 +10,14 @@
                 <div class="player__title">
                     {{ $player->name }}
                 </div>                    
-                <div>{{ $player->latestRating->new_rating; }}</div>          
+                @if ($player->latestRating) 
+                    <div>{{ $player->latestRating->new_rating; }}</div>     
+                @else
+                    <div>
+                        Error! No rating for player_id {{ $player->id }}
+                    </div>
+                @endif
+                     
             </div>   
         </a>                      
         @endforeach
