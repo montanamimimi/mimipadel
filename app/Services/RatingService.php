@@ -65,7 +65,9 @@ class RatingService
                 'created_at',
                 '>=',
                 $history->created_at
-            )->delete();
+            )
+            ->whereNotNull('tournament_id')
+            ->delete();
         }
 
         $after = TournamentGame::where(
