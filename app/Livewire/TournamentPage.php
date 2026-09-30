@@ -8,13 +8,12 @@ use App\Models\Tournament;
 use App\Models\TournamentPlayer;
 use App\Models\TournamentGame;
 use App\Models\PlayerRatingHistory;
-use App\Services\EloRatingService;
 use Illuminate\Support\Facades\Log;
+use Livewire\Attributes\On;
 
 class TournamentPage extends Component
 {
     public ?Tournament $tournament = null;
-    protected EloRatingService $elo;
 
     public $name;
     public $date;
@@ -39,11 +38,6 @@ class TournamentPage extends Component
     public $finished;
 
     public string $mode = 'view';
-
-    public function boot(EloRatingService $elo)
-    {
-        $this->elo = $elo;
-    }    
 
     public function save()
     {
@@ -99,9 +93,10 @@ class TournamentPage extends Component
         $this->checkPlayersReady();
     }
 
-    public function deleteGame($id) {
-        TournamentGame::findOrFail($id)->delete();
-        $this->tournamentGames = $this->tournamentGames->reject(fn ($item) => $item->id == $id);   
+    #[On('deleteGame')] 
+    public function deleteGame($gameId) {
+        TournamentGame::findOrFail($gameId)->delete();
+        $this->tournamentGames = $this->tournamentGames->reject(fn ($item) => $item->id == $gameId);   
         $this->populateLeaderboard();     
     }    
 
@@ -117,6 +112,7 @@ class TournamentPage extends Component
         ->get();
     }
 
+    #[On('addTournamentGame')] 
     public function addTournamentGame() {
 
         if (
@@ -143,7 +139,6 @@ class TournamentPage extends Component
             ]);
 
             $this->tournamentGames->push($game);
-            $this->changePlayerRating($game->id);
             $this->populateLeaderboard();
 
             if ((count($this->tournamentGames) % $this->tournament->courts) == 0) {
@@ -158,47 +153,6 @@ class TournamentPage extends Component
             $this->side2score = null;
         }
 
-    }
-
-    private function changePlayerRating($gameId) {
-
-        $tournamentPlayer1 = $this->tournamentPlayers
-        ->firstWhere('id', $this->side1player1id);
-        $tournamentPlayer2 = $this->tournamentPlayers
-        ->firstWhere('id', $this->side1player2id);
-        $tournamentPlayer3 = $this->tournamentPlayers
-        ->firstWhere('id', $this->side2player1id);
-        $tournamentPlayer4 = $this->tournamentPlayers
-        ->firstWhere('id', $this->side2player2id);                        
-
-        $rating = $this->elo->calculate(
-            $tournamentPlayer1->player->latestRating->new_rating,
-            $tournamentPlayer2->player->latestRating->new_rating,
-            $tournamentPlayer3->player->latestRating->new_rating,
-            $tournamentPlayer4->player->latestRating->new_rating,
-            $this->side1score,
-            $this->side2score,
-        );
-
-        $players = [
-            [$tournamentPlayer1, $rating],
-            [$tournamentPlayer2, $rating],
-            [$tournamentPlayer3, -$rating],
-            [$tournamentPlayer4, -$rating],
-        ];
-
-        foreach ($players as [$tournamentPlayer, $ratingChange]) {
-            $oldRating = $tournamentPlayer->player->latestRating->new_rating;
-
-            PlayerRatingHistory::create([
-                'tournament_id' => $this->tournament->id,
-                'player_id' => $tournamentPlayer->player_id,
-                'tournament_game_id' => $gameId,
-                'old_rating' => $oldRating,
-                'rating_change' => $ratingChange,
-                'new_rating' => $oldRating + $ratingChange,
-            ]);
-        }                
     }
 
     private function checkPlayersReady() {

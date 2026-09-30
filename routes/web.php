@@ -7,6 +7,7 @@ use App\Livewire\Welcome;
 use App\Livewire\Dashboard;
 use App\Livewire\TournamentsList;
 use App\Livewire\TournamentPage;
+use App\Livewire\TournamentGamePage;
 use App\Livewire\PlayersList;
 use App\Livewire\PlayerPage;
 
@@ -27,4 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/tournaments/create', TournamentPage::class)->name('tournaments.create');
     Route::get('/tournaments/{tournament}', TournamentPage::class)->name('tournaments.show');
     Route::get('/tournaments/{tournament}/edit', TournamentPage::class)->name('tournaments.edit');
+
+    Route::get('/tournaments/{tournament}/games/{game}', TournamentGamePage::class)->name('tournaments.games.show');
+    Route::get('/tournaments/{tournament}/games/{game}/edit', TournamentGamePage::class)->name('tournaments.games.edit');
+
 });
