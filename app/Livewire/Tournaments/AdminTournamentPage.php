@@ -164,9 +164,6 @@ class AdminTournamentPage extends BaseTournamentPage
         $this->tournament = $tournament;
 
         if ($tournament) {
-            if ((count($this->tournamentGames) % $this->tournament->courts) == 0) {
-                $this->round++;
-            }
                        
             $this->checkPlayersReady();
 
