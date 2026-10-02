@@ -22,7 +22,8 @@
                     :players="$tournamentPlayers"
                     :game="$game"
                     :tournament="$tournament"
-                    :show-delete="$key === $tournamentGames->count() - 1"       
+                    :show-delete="$key === $tournamentGames->count() - 1"     
+                    :show-edit="true"  
                     save-event="deleteGame"   
                 />    
             @if ($key === $tournamentGames->count() - 1 ||

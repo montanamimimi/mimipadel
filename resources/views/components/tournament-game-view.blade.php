@@ -13,9 +13,11 @@
         {{ $players->firstWhere('id', $game->side2_player2_id)?->player?->name }}
         {{ $game->side_2_score}}
         </div>
+        @if ($showEdit)
         <a href="{{ route('tournaments.games.show', [$tournament, $game]) }}" class="game__delete">
             edit game
         </a>             
+        @endif
         @if (!$tournament->finished && $showDelete)       
             <div wire:click="$dispatch('{{ $saveEvent }}', { gameId: '{{ $game->id }}' })" class="game__delete">
                 delete game

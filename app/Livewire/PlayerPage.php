@@ -11,6 +11,7 @@ class PlayerPage extends Component
     public ?Player $player = null;
 
     public $name;
+    public $archived = false;
 
     public string $mode = 'view';
 
@@ -36,12 +37,36 @@ class PlayerPage extends Component
         return redirect()->route('players.index');
     }
 
-    public function mount(?Player $player = null)
+    public function savePlayer() 
     {
+        $this->name = ucfirst($this->name);
+        // $this->player->name = $this->name;
+        // $this->player->name = $this->name;
+        // $this->player->save();
+
+        $this->player->update(
+            [
+                'name' => $this->name,
+                'archived' => $this->archived
+            ]
+        );
+
+        return redirect()->route('players.index');
+    }
+
+    public function mount(?Player $player = null)
+    {            
         $this->player = $player;
+        
 
         if (!$player) {
             $this->mode = 'create';
+        } else {
+            $this->name = $player->name;
+            $this->archived = $player->archived;
+            if (request()->routeIs('players.edit')) {
+                $this->mode = 'edit';
+            }
         }
     }
 

@@ -1,0 +1,15 @@
+@use '../base' as *; 
+
+input {
+    padding: 8px 12px;
+    border: 1px solid $borderPrimary;
+    border-radius: 8px;
+}
+
+
+input[type=text] {
+//   width: 100%;
+//   padding: 12px;
+//   margin: 10px 0;
+//   box-sizing: border-box;
+}

@@ -6,7 +6,8 @@ use App\Livewire\Login;
 use App\Livewire\Welcome;
 use App\Livewire\Dashboard;
 use App\Livewire\TournamentsList;
-use App\Livewire\TournamentPage;
+use App\Livewire\Tournaments\BaseTournamentPage;
+use App\Livewire\Tournaments\AdminTournamentPage;
 use App\Livewire\TournamentGamePage;
 use App\Livewire\PlayersList;
 use App\Livewire\PlayerPage;
@@ -16,18 +17,21 @@ Route::get('/login', Login::class)->name('login')->middleware('guest');
 
 Route::post('/login/firebase', [FirebaseLoginController::class, 'login']);
 
+Route::get('/tournaments/{tournament}', BaseTournamentPage::class)
+    ->name('tournaments.show');
+Route::get('/players', PlayersList::class)->name('players.index');
+Route::get('/player/{player}', PlayerPage::class)->name('players.show');   
+
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
 
-    Route::get('/players', PlayersList::class)->name('players.index');
+
     Route::get('/players/create', PlayerPage::class)->name('players.create');
-    Route::get('/players/{player}', PlayerPage::class)->name('players.show');
-    Route::get('/players/{player}/edit', PlayerPage::class)->name('players.edit');    
+    Route::get('/player/{player}/edit', PlayerPage::class)->name('players.edit');    
     
-    Route::get('/tournaments', TournamentsList::class)->name('tournaments.index');
-    Route::get('/tournaments/create', TournamentPage::class)->name('tournaments.create');
-    Route::get('/tournaments/{tournament}', TournamentPage::class)->name('tournaments.show');
-    Route::get('/tournaments/{tournament}/edit', TournamentPage::class)->name('tournaments.edit');
+    Route::get('/my/tournaments', TournamentsList::class)->name('admin.tournaments.index');
+    Route::get('/my/tournaments/create', AdminTournamentPage::class)->name('admin.tournaments.create');
+    Route::get('/my/tournaments/{tournament}/edit', AdminTournamentPage::class)->name('admin.tournaments.edit');
 
     Route::get('/tournaments/{tournament}/games/{game}', TournamentGamePage::class)->name('tournaments.games.show');
     Route::get('/tournaments/{tournament}/games/{game}/edit', TournamentGamePage::class)->name('tournaments.games.edit');

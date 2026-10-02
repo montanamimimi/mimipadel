@@ -37,7 +37,7 @@ class TournamentGamePage extends Component
 
         $this->game->save();
 
-        return redirect()->route('tournaments.show', $this->tournament); 
+        return redirect()->route('admin.tournaments.edit', $this->tournament); 
     }
 
     public function mount(Tournament $tournament, TournamentGame $game)

@@ -3,12 +3,14 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use App\Models\Tournament;
 
 class Welcome extends Component
 {
     public function render()
     {
-        return view('livewire.welcome')
+        $tournaments = Tournament::orderBy('created_at', 'desc')->get();
+        return view('livewire.welcome', compact('tournaments'))
             ->layout('layouts.app');
     }
 }

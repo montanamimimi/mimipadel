@@ -14,6 +14,7 @@ class TournamentGameView extends Component
         public string $mode = 'view',
         public string $saveEvent = '',
         public bool $showDelete = false,
+        public bool $showEdit = false,
     ) {}
 
     public function render(): View

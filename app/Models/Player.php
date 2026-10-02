@@ -18,6 +18,7 @@ class Player extends Model
         'id',
         'user_id',
         'name',
+        'archived'
     ];
 
     public function ratingHistory(): HasMany

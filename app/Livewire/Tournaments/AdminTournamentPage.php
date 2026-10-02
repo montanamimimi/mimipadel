@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\Livewire;
+namespace App\Livewire\Tournaments;
 
 use Livewire\Component;
 use App\Models\Player;
@@ -11,9 +11,8 @@ use App\Models\PlayerRatingHistory;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\On;
 
-class TournamentPage extends Component
+class AdminTournamentPage extends BaseTournamentPage
 {
-    public ?Tournament $tournament = null;
 
     public $name;
     public $date;
@@ -23,8 +22,6 @@ class TournamentPage extends Component
     public $points = 0;
     public $mixer = true;
     public $players;
-    public $tournamentPlayers;
-    public $tournamentGames;
     public $ready = false;
     public $side1player1id = null;
     public $side1player2id = null;
@@ -34,10 +31,6 @@ class TournamentPage extends Component
     public $side2score = null;
     public $round = null;
     public $error = false;
-    public $leaderboard = [];
-    public $finished;
-
-    public string $mode = 'view';
 
     public function save()
     {
@@ -59,14 +52,14 @@ class TournamentPage extends Component
             'mixer' => $this->mixer,
         ]);
 
-        return redirect()->route('tournaments.index');
+        return redirect()->route('admin.tournaments.index');
     }
 
     public function updateTournamentFinished()
     {       
         $this->tournament->finished = $this->finished;
         $this->tournament->save();
-        return redirect()->route('tournaments.index');
+        return redirect()->route('admin.tournaments.index');
     }
 
     public function addPlayer() {
@@ -166,64 +159,29 @@ class TournamentPage extends Component
     public function mount(?Tournament $tournament = null)
     {   
        
+        parent::mount($tournament);
+
         $this->tournament = $tournament;
 
-        if (!$tournament) {
-            $this->mode = 'create';
-        } else {           
-            $this->finished = $this->tournament->finished;
-
-            $this->tournamentPlayers = TournamentPlayer::with('player')
-            ->where('tournament_id', $tournament->id)
-            ->orderBy('name')
-            ->get();
-
-            $this->tournamentGames = TournamentGame::where('tournament_id', $tournament->id)->get();
-
-            $this->populateLeaderboard();
-
+        if ($tournament) {
             if ((count($this->tournamentGames) % $this->tournament->courts) == 0) {
                 $this->round++;
             }
-            $this->round = floor(count($this->tournamentGames) / $this->tournament->courts);
-           
+                       
             $this->checkPlayersReady();
 
-            if (!$tournament->started) {
-                $this->mode = 'edit';
-                $this->players = Player::orderBy('name')->get();
-            } else {
-                $this->mode = "play";
-            }
-        }
-
-    }
-
-    private function populateLeaderboard() {
-
-        $arr = [];
-        $this->leaderboard = [];
-
-        foreach ($this->tournamentPlayers as $player) {
-            $arr[$player->id] = 0;
-        }        
-
-        foreach ($this->tournamentGames as $game) {
-            $arr[$game->side1_player1_id] += $game->side_1_score;
-            $arr[$game->side1_player2_id] += $game->side_1_score;
-            $arr[$game->side2_player1_id] += $game->side_2_score;
-            $arr[$game->side2_player2_id] += $game->side_2_score;
-        }
-
-        
-        foreach ($this->tournamentPlayers as $player) {
-            array_push($this->leaderboard, [
-                'name' => $player->name,
-                'score' => $arr[$player->id]
-            ]);
-        }       
-
-        usort($this->leaderboard, fn($a, $b) => $b['score'] <=> $a['score']);
+            if (request()->routeIs('admin.tournaments.edit'))  {
+                if (!$tournament->started) {
+                    $this->mode = 'edit';
+                    $this->players = Player::orderBy('name')
+                        ->where('archived', false)
+                        ->get();            
+                } else {
+                    $this->mode = "play";
+                    $this->round = floor(count($this->tournamentGames) / $this->tournament->courts);
+                }
+            }    
+        } 
 
     }
 

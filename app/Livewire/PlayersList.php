@@ -7,6 +7,7 @@ use App\Models\Player;
 
 class PlayersList extends Component
 {
+
     public function render()
     {
         $players = Player::with('latestRating')
