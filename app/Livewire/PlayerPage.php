@@ -12,6 +12,7 @@ class PlayerPage extends Component
 
     public $name;
     public $archived = false;
+    public $ratings;
 
     public string $mode = 'view';
 
@@ -62,6 +63,14 @@ class PlayerPage extends Component
         if (!$player) {
             $this->mode = 'create';
         } else {
+
+            $this->ratings = $this->player->ratingHistory()
+            ->orderBy('created_at')
+            ->get()
+            ->map(fn ($rating) => [
+                'date' => $rating->created_at->format('d M'),
+                'rating' => $rating->new_rating,
+            ]);        
             $this->name = $player->name;
             $this->archived = $player->archived;
             if (request()->routeIs('players.edit')) {
@@ -73,15 +82,7 @@ class PlayerPage extends Component
     public function render()
     {        
 
-        $ratings = $this->player->ratingHistory()
-        ->orderBy('created_at')
-        ->get()
-        ->map(fn ($rating) => [
-            'date' => $rating->created_at->format('d M'),
-            'rating' => $rating->new_rating,
-        ]);
-
-        return view('livewire.player-page', compact('ratings'))
+        return view('livewire.player-page')
             ->layout('layouts.app');
     }
 }
