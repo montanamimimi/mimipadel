@@ -97,8 +97,9 @@ class AdminTournamentPage extends BaseTournamentPage
 
     public function startTournament() {
         $this->tournament->started = true;
-        $this->tournament->save();        
+        $this->tournament->save();
         $this->mode = "play";
+        $this->round = 0;
         $this->tournamentPlayers = TournamentPlayer::with('player')
         ->where('tournament_id', $this->tournament->id)
         ->orderBy('name')

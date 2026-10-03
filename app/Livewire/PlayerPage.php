@@ -72,7 +72,16 @@ class PlayerPage extends Component
 
     public function render()
     {        
-        return view('livewire.player-page')
+
+        $ratings = $this->player->ratingHistory()
+        ->orderBy('created_at')
+        ->get()
+        ->map(fn ($rating) => [
+            'date' => $rating->created_at->format('d M'),
+            'rating' => $rating->new_rating,
+        ]);
+
+        return view('livewire.player-page', compact('ratings'))
             ->layout('layouts.app');
     }
 }
