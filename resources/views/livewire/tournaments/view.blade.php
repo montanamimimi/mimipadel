@@ -1,11 +1,27 @@
 <div>
-    
+
+    @if ($leaderboard)
+        <div class="leaderboard">
+            <h3>Leaderboard</h3>
+            <div class="leaderboard__items">
+            @foreach ( $leaderboard as $key => $item )
+                <div class="leaderboard__item">
+                    <div>{{ $key + 1}}. {{ $item['name'] }}</div>
+                    <div>{{ $item['score'] }}</div>                    
+                </div>
+            @endforeach
+            </div>
+        </div>
+    @endif
+
+    <h3>Rounds</h3>
+
     <div class="games">
         @foreach ($tournamentGames as $key => $game)    
             
             @if ($key === 0 || $game->round !== $tournamentGames[$key - 1]->round)
                 <div class="round">
-                <h4>Round {{ $game->round + 1 }}</h4>
+                <h4>Round #{{ $game->round + 1 }}</h4>
             @endif            
                 <x-tournament-game-view
                     :players="$tournamentPlayers"
@@ -21,14 +37,5 @@
         @endforeach
     </div>
 
-    @if ($leaderboard)
-        <div class="leaderboard">
-            <h3>Leaderboard</h3>
-            @foreach ( $leaderboard as $key => $item )
-                <div>
-                   {{ $key + 1}}. {{ $item['name'] }} {{ $item['score'] }}
-                </div>
-            @endforeach
-        </div>
-    @endif
+
 </div>

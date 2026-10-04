@@ -4,33 +4,41 @@
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
-    text-transform: uppercase;
     text-align: center;
+
+    &--small {
+        font-size: 14px;
+        padding: 8px 20px;
+        border-radius: 4px;    
+    }
 
     &--medium {
         font-size: 16px;
         padding: 10px 20px;
-        border-radius: 8px;         
+        border-radius: 4px;         
     }    
 
     &--large {
         font-size: 18px;
         padding: 12px 40px;
-        border-radius: 8px;         
+        border-radius: 4px;         
     }
 
     &--white {
-        background-color: white;
-        border: 1px solid gray;
+        background-color: transparent;
+        border: 1px solid $borderPrimary;
         color: black;
-        font-weight: 600;  
         
         transition: 0.3s ease;   
         
         &:hover {
-            color: gray;
+            border-color: $borderPrimaryHover;
             transition: 0.3s ease;            
         }        
+    }
+
+    &--uppercase {
+        text-transform: uppercase;
     }
 
     // &--disabled {

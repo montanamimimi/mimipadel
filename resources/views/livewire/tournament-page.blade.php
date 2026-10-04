@@ -1,7 +1,7 @@
 <div>
     <h1>
         @if($tournament)
-        {{ $tournament->name }}
+        {{ date('j M Y', strtotime($tournament->date)) }}
         @else
         Tournament
         @endif

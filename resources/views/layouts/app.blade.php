@@ -12,60 +12,70 @@
         @vite(['resources/css/app.css', 'resources/scss/app.scss', 'resources/js/app.js'])
     </head>
     <body>
-        <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 mt-6 not-has-[nav]:hidden">
-            @if (Route::has('login'))
-                <nav class="flex items-center justify-end gap-4">
-                    <a
-                        href="{{ url('/') }}"
-                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                    >
-                        Home
-                    </a>       
-                    <a
-                        href="{{ route('players.index') }}"
-                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                    >
-                        Players
-                    </a>                                       
-                    @auth
-                        <a
-                            href="{{ url('/dashboard') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                        >
-                            Admin
-                        </a>                      
-                        <a
-                            href="{{ route('admin.tournaments.index') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                        >
-                            Edit Tournaments
-                        </a>
-                    
-                    @else
-                        {{-- <a
-                            href="{{ route('login') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
-                        >
-                            Log in
-                        </a> --}}
+        <header>
+            <div class="container">
 
-                        {{-- @if (Route::has('register'))
+                <div class="logo">
+                    <a href="{{ url('/') }}">
+                        <img src="{{ asset('images/mimi_logo--small.png') }}" alt="Logo">
+                    </a>
+                </div>
+                <div class="menu">
+            
+                    <nav>
+                        <a
+                            href="{{ url('/') }}"
+                            class="btn btn--small btn--white"
+                        >
+                            Home
+                        </a>       
+                        <a
+                            href="{{ route('players.index') }}"
+                            class="btn btn--small btn--white"
+                        >
+                            Players
+                        </a>                                       
+                        @auth
                             <a
-                                href="{{ route('register') }}"
-                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                                Register
+                                href="{{ url('/dashboard') }}"
+                                class="btn btn--small btn--white"
+                            >
+                                Admin
+                            </a>                      
+                            <a
+                                href="{{ route('admin.tournaments.index') }}"
+                                class="btn btn--small btn--white"
+                            >
+                                Edit Tournaments
                             </a>
-                        @endif --}}
-                      
-                    @endauth
-                </nav>
-            @endif
+                        
+                        @else
+                            {{-- <a
+                                href="{{ route('login') }}"
+                                class="btn btn--small btn--white"
+                            >
+                                Log in
+                            </a> --}}
+
+                            {{-- @if (Route::has('register'))
+                                <a
+                                    href="{{ route('register') }}"
+                                    class="btn btn--small btn--white">
+                                    Register
+                                </a>
+                            @endif --}}
+                        
+                        @endauth
+                    </nav>
+                </div>
+     
+            </div>
         </header>    
-        <div class="flex items-center justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
-            <main class="flex max-w-[335px] w-full flex-col-reverse lg:max-w-4xl lg:flex-row">
-               {{ $slot }} 
-            </main>
-        </div>           
+        <main>
+            <div class="container">
+                {{ $slot }} 
+            </div>
+        </main>        
         
 
         @livewireScripts

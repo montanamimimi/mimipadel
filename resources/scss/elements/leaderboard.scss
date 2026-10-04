@@ -1,0 +1,25 @@
+@use '../base' as *; 
+
+.leaderboard {
+    margin-bottom: 24px;
+    max-width: 450px;
+
+    &__items {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    &__item {
+        background-color: $backgroundSecondary;
+        padding: 8px 16px;
+        border-radius: 4px;
+        display: flex;
+        justify-content: space-between;
+        font-weight: 600;
+
+        &:hover {
+            background-color: $green;
+        }
+    }
+}
