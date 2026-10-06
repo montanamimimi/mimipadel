@@ -3,8 +3,10 @@
 .players {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 8px;
-    max-width: 400px;
+    width: 100%;
+    margin-bottom: 40px;
     
     .player {    
         border-radius: 8px;
@@ -12,9 +14,10 @@
         display: flex;
         justify-content: space-between;
         background-color: $backgroundPrimary;
+        width: 400px;
 
         &:hover {
-            background-color: $green;
+            background-color: $lightGreen;
         }
 
         &__title {
@@ -37,4 +40,13 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    padding-bottom: 40px;
 }
+
+@media (max-width: $mediaMobile) {
+    .players {
+        .player {
+            width: 100%;
+        }
+    }
+}  

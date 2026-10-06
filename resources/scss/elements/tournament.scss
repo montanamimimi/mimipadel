@@ -2,22 +2,28 @@
 
 .tournaments {
     display: flex;
+    justify-content: center;
     gap: 16px;
     flex-wrap: wrap;
     margin-bottom: 24px;
+    width: 100%;
 }
 
 .tournament {
     border-radius: 8px;
     padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
     background-color: $backgroundPrimary;
     width: 338px;
 
+    &__link {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        text-decoration: none;
+    }
+
     &:hover {
-        background-color: $green;
+        background-color: $lightGreen;
     }
 
     &--finished {
@@ -27,10 +33,6 @@
 
     &__title {
         font-size: 24px;
-    }
-
-    &__link {
-        text-decoration: underline;
     }
 }
 
@@ -52,3 +54,10 @@
         cursor: pointer;
     }
 }
+
+
+@media (max-width: $mediaMobile) {
+    .tournament {
+        width: 100%;
+    }
+}  

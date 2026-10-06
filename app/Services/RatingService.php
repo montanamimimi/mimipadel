@@ -85,7 +85,7 @@ class RatingService
         }
     }
 
-    private function calculate(
+    public function calculate(
         int $ratingA,
         int $ratingB,
         int $ratingC,

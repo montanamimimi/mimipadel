@@ -16,8 +16,8 @@
                     {{ $tournament->format }}, 
                     {{ $tournament->courts }} courts, 
                     {{ $tournament->points }} points</div>
-                <a href="{{ route('tournaments.show', $tournament) }}" class="tournament__link">Show</a>                      
-                <a href="{{ route('admin.tournaments.edit', $tournament) }}" class="tournament__link">Edit</a>                
+                <a href="{{ route('tournaments.show', $tournament) }}">Show</a>                      
+                <a href="{{ route('admin.tournaments.edit', $tournament) }}">Edit</a>                
             </div>            
         @endforeach
     </div>

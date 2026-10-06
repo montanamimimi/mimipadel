@@ -2,12 +2,15 @@
 
 .leaderboard {
     margin-bottom: 24px;
-    max-width: 450px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 
     &__items {
         display: flex;
         flex-direction: column;
         gap: 8px;
+        width: 450px;
     }
 
     &__item {
@@ -19,7 +22,16 @@
         font-weight: 600;
 
         &:hover {
-            background-color: $green;
+            background-color: $lightGreen;
         }
     }
 }
+
+
+@media (max-width: $mediaMobile) {
+    .leaderboard {
+        &__items {
+            width: 100%;
+        }                
+    }
+}  

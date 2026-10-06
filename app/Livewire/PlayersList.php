@@ -14,7 +14,8 @@ class PlayersList extends Component
         $players = Player::with('latestRating')
             ->get()
             ->sortByDesc(fn ($player) => $player->latestRating?->new_rating)
-            ->sortBy('archived');
+            ->sortBy('archived')
+            ->values();
          
         return view('livewire.players-list', compact('players'))
             ->layout('layouts.app');

@@ -6,20 +6,20 @@
     @endif
     <div class="players">
         @foreach( $players as $key => $player )
-        <a href="{{ route('players.show', $player) }}">
-            <div class="
+        <a class="
                 player
                 @if ($player->archived)
                 player--archived
                 @endif
-                ">
-                <div class="player__title">
-                    {{ $player->name }}
-                </div>                    
-                
-                <div>{{ $player->latestRating?->new_rating; }}</div>     
-                     
-            </div>   
+                " 
+            href="{{ route('players.show', $player) }}">
+           
+            <div class="player__title">
+                {{ $key + 1}}. {{ $player->name }}
+            </div>                    
+            
+            <div>{{ $player->latestRating?->new_rating; }}</div>                          
+           
         </a>                      
         @endforeach
     </div>    

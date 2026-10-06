@@ -2,18 +2,33 @@ import Chart from 'chart.js/auto';
 
 class RatingChart {
     constructor() {
+        this.chart = null;
+
+        this.init();
+
+        document.addEventListener('livewire:init', () => {
+            Livewire.hook('morph.added', ({ el }) => {
+                if (el.id === 'ratingChart') {
+                    this.init();
+                }
+            });
+        });        
+
+    }
+
+    init() {
         const canvas = document.getElementById('ratingChart');
 
         if (!canvas) {
             return;
         }
 
-        
-        
+        if (this.chart) {
+            this.chart.destroy();
+        }        
+
         const labels = JSON.parse(canvas.dataset.labels);
         const data = JSON.parse(canvas.dataset.values);
-
-        console.log(data);
 
         this.chart = new Chart(canvas, {
             type: 'line',
@@ -34,16 +49,6 @@ class RatingChart {
                 }
             }
         });
-    }
-
-    setData(labels, data) {
-        this.chart.data.labels = labels;
-        this.chart.data.datasets[0].data = data;
-        this.chart.update();
-    }
-
-    destroy() {
-        this.chart?.destroy();
     }
 }
 

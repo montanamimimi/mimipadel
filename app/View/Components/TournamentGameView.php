@@ -8,13 +8,15 @@ use Illuminate\View\View;
 class TournamentGameView extends Component
 {
     public function __construct(
-        public $players,
+
         public $tournament,
         public $game = null,
+        public $players = [],
         public string $mode = 'view',
         public string $saveEvent = '',
         public bool $showDelete = false,
         public bool $showEdit = false,
+        public bool $showRating = false,
     ) {}
 
     public function render(): View

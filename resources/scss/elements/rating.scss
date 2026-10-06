@@ -1,0 +1,40 @@
+@use '../base' as *; 
+
+.ratings {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .rating {
+        background-color: $backgroundPrimary;
+        padding: 8px 16px;
+        
+        &__preview {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            gap: 16px;           
+        }
+
+        &__details {
+            border-top: 1px solid $borderPrimary;
+            padding-top: 8px;
+        }
+
+        &__arrow {
+            height: 32px;
+            width: 32px;
+            background-repeat: no-repeat;
+            background-position: center;
+            &--up {
+                background-image: url('data:image/svg+xml,<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M28 9.23523L18.9467 18.1934C18.8227 18.3171 18.6752 18.4152 18.5128 18.4822C18.3503 18.5492 18.176 18.5837 18 18.5837C17.824 18.5837 17.6497 18.5492 17.4872 18.4822C17.3248 18.4152 17.1773 18.3171 17.0533 18.1934L13.6133 14.7896C13.4894 14.6659 13.3419 14.5678 13.1794 14.5008C13.017 14.4338 12.8427 14.3993 12.6667 14.3993C12.4907 14.3993 12.3164 14.4338 12.1539 14.5008C11.9914 14.5678 11.844 14.6659 11.72 14.7896L4 22.4284" stroke="%23279F51" stroke-width="3.2032" stroke-linecap="round" stroke-linejoin="round"/><path d="M27.9998 14.5125V9.23523H22.6665" stroke="%23279F51" stroke-width="3.2032" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+            }           
+            
+            &--down {
+                background-image: url('data:image/svg+xml,<svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M28.019 22.4867L18.9843 13.5097C18.8607 13.3858 18.7134 13.2873 18.5511 13.22C18.3887 13.1527 18.2145 13.1179 18.0385 13.1175C17.8625 13.1171 17.6881 13.1513 17.5255 13.2179C17.3629 13.2845 17.2152 13.3824 17.091 13.5058L13.6439 16.9024C13.5197 17.0258 13.3721 17.1237 13.2094 17.1903C13.0468 17.257 12.8725 17.2911 12.6965 17.2907C12.5204 17.2904 12.3462 17.2555 12.1839 17.1882C12.0216 17.1209 11.8743 17.0224 11.7506 16.8985L4.04654 9.24357" stroke="%23FF392B" stroke-width="3.2032" stroke-linecap="round" stroke-linejoin="round"/><path d="M28.0304 17.2095L28.0194 22.4868L22.686 22.4757" stroke="%23FF392B" stroke-width="3.2032" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+            }
+        }
+
+
+    }
+}

@@ -34,13 +34,15 @@
     </div>
 
     @if ($leaderboard)
+        <h3>Leaderboard</h3>
         <div class="leaderboard">
-            <h3>Leaderboard</h3>
+            <div class="leaderboard__items">
             @foreach ( $leaderboard as $key => $item )
                 <div>
                    {{ $key + 1}}. {{ $item['name'] }} {{ $item['score'] }}
                 </div>
             @endforeach
+            </div>
         </div>
     @endif
         
