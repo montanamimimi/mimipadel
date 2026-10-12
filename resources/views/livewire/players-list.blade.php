@@ -1,7 +1,7 @@
 <div>
     <h1>Players</h1>
-    <p>
-        <a href="{{ route('ratings.explained') }}" >
+    <p class="mb-6">
+        <a href="{{ route('ratings.explained') }}" style="text-decoration: underline;">
             How does it works?
         </a>
     </p>
