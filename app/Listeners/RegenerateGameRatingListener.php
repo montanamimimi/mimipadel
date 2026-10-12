@@ -18,7 +18,7 @@ class RegenerateGameRatingListener
     /**
      * Handle the event.
      */
-    public function handle(RegeneRateGameratingEvent $event): void
+    public function handle(RegenerateGameRatingEvent $event): void
     {
         app(RatingService::class)->updateForGame($event->game);
     }

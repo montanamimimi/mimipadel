@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Log;
 use App\Services\RatingService;
 use App\Models\PlayerRatingHistory;
 use App\Models\TournamentGame;
-use App\Events\RegeneRateGameratingEvent;
+use App\Events\RegenerateGameRatingEvent;
 
 class UpdateRatings extends Command
 {
@@ -38,7 +38,7 @@ class UpdateRatings extends Command
         ->get();
 
         foreach ($games as $game) {
-            RegeneRateGameratingEvent::dispatch($game);
+            RegenerateGameRatingEvent::dispatch($game);
         }
 
         Log::info('Ratings regenerared for ' . count($games) . ' games');
