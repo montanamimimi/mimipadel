@@ -27,8 +27,8 @@ class RatingChart {
             this.chart.destroy();
         }        
 
-        const labels = JSON.parse(canvas.dataset.labels);
-        const data = JSON.parse(canvas.dataset.values);
+        const labels = window.ratingChartLabels;
+        const data = window.ratingChartData;
 
         this.chart = new Chart(canvas, {
             type: 'line',

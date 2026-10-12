@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
-use App\Models\TournamentGame;
 
 class PlayerRatingHistory extends Model
 {    
@@ -28,6 +27,11 @@ class PlayerRatingHistory extends Model
     {
         return $this->belongsTo(TournamentGame::class);
     }    
+
+    public function tournament()
+    {
+        return $this->belongsTo(Tournament::class);
+    }        
 
     public function player()
     {

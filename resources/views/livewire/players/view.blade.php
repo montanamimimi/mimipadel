@@ -4,11 +4,7 @@
         <p>Rating: {{ $player->latestRating?->new_rating; }} </p>
     </div>
     <div>
-        <canvas wire:ignore
-            id="ratingChart"
-            data-labels='@json($chartRatings->map(fn ($rating) => $rating->created_at->format("d M")))'
-            data-values='@json($chartRatings->pluck("new_rating"))'
-        ></canvas>
+        <canvas wire:ignore id="ratingChart"></canvas>
     </div>
     @if ($player->archived)
         <div>Player is in archive</div>
@@ -31,3 +27,21 @@
     {{ $ratings->links(data: ['scrollTo' => false]) }}
     
 </div>
+
+<script>
+    window.ratingChartLabels = [
+        @foreach ($chartRatings as $rating)
+            @if ($rating->tournament)
+                '{{ date('d M Y', strtotime(trim($rating->tournament->date))) }}',
+            @endif
+        @endforeach
+    ];
+
+    window.ratingChartData = [
+        @foreach ($chartRatings as $rating)
+            @if ($rating->tournament)
+                {{ $rating->new_rating }},
+            @endif
+        @endforeach
+    ];
+</script>

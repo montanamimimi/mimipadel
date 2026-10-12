@@ -11,6 +11,7 @@ use App\Livewire\Tournaments\AdminTournamentPage;
 use App\Livewire\TournamentGamePage;
 use App\Livewire\PlayersList;
 use App\Livewire\PlayerPage;
+use App\Livewire\RatingsExplained;
 
 Route::get('/', Welcome::class);
 Route::get('/login', Login::class)->name('login')->middleware('guest');
@@ -21,6 +22,7 @@ Route::get('/tournaments/{tournament}', BaseTournamentPage::class)
     ->name('tournaments.show');
 Route::get('/players', PlayersList::class)->name('players.index');
 Route::get('/player/{player}', PlayerPage::class)->name('players.show');   
+Route::get('/ratings-explained', RatingsExplained::class)->name('ratings.explained');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');

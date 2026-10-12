@@ -68,8 +68,6 @@ class PlayerPage extends Component
             'tournamentGame.side2Player1',
             'tournamentGame.side2Player2',            
         ])->findOrFail($id);  
-
-       // dd($this->openedRating->tournamentGame->side1Player1->player->name);
         
     }
 
@@ -104,6 +102,7 @@ class PlayerPage extends Component
             
             $ratings = $this->player->ratingHistory()            
                 ->orderByDesc('created_at')
+                ->orderByDesc('id')
                 ->paginate(20);
 
         }

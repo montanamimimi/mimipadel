@@ -78,8 +78,6 @@ class RatingService
         ->orderBy('created_at')
         ->get();
 
-        Log::debug(count($after));
-
         foreach ($after as $game) {
             $this->updateForGame($game);
         }
@@ -101,12 +99,24 @@ class RatingService
 
         $k = 12;
 
+        $noReward = false;
+
         if ($scoreA > $scoreB) {
             $eloK = 1;
+            if ($expected > 0.7) {
+                $noReward = true;
+            }
         } else if ($scoreA < $scoreB) {
             $eloK = 0;
+            if ($expected < 0.3) {
+                $noReward = true;
+            }
         } else {
             $eloK = 0.5;
+        }
+
+        if ($noReward) {
+            return 0;
         }
 
         $eloChange = $k * ($eloK - $expected);
