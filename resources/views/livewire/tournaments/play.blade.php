@@ -45,6 +45,26 @@
             </div>
         </div>
     @endif
+
+    <div class="mt-6">
+        <h3>Add photos</h3>
+        <form wire:submit="uploadTournamentPhoto">
+            <input type="file" wire:model="photo" accept="image/*">
+            <button 
+                type="submit"
+                class="px-4 py-2 bg-indigo-600 text-white rounded-md mt-4 mb-6 hover:bg-indigo-700">
+                Upload
+            </button>
+        </form>
+    </div>
+
+    <div class="photos">
+        @foreach ($tournament->photos as $photo)
+            <div class="photo">
+                <img src="{{ Storage::url($photo->path) }}" alt="Tournament photo">
+            </div>           
+        @endforeach
+    </div>
         
     <div class="mt-6">
         <label for="finished">Tournament finished?</label>        

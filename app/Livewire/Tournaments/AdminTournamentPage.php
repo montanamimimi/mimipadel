@@ -10,9 +10,12 @@ use App\Models\TournamentGame;
 use App\Models\PlayerRatingHistory;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\On;
+use Livewire\WithFileUploads;
 
 class AdminTournamentPage extends BaseTournamentPage
 {
+
+    use WithFileUploads;
 
     public $name;
     public $date;
@@ -31,6 +34,7 @@ class AdminTournamentPage extends BaseTournamentPage
     public $side2score = null;
     public $round = null;
     public $error = false;
+    public $photo;
 
     public function save()
     {
@@ -54,6 +58,24 @@ class AdminTournamentPage extends BaseTournamentPage
 
         return redirect()->route('admin.tournaments.index');
     }
+
+    public function uploadTournamentPhoto()
+    {    
+        $this->validate([
+            'photo' => 'required|image|max:5120',
+        ]);
+
+        $path = $this->photo->store(
+            'tournament-photos',
+            'public'
+        );
+
+        $this->tournament->photos()->create([
+            'path' => $path,
+        ]);
+
+        $this->reset('photo');
+    }    
 
     public function updateTournamentFinished()
     {       

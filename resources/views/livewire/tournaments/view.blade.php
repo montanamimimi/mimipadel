@@ -1,5 +1,5 @@
 <div>
-
+    
     @if ($leaderboard)
         <h3>Leaderboard</h3>
         <div class="leaderboard">
@@ -28,6 +28,14 @@
             </div>
         </div>
     @endif
+
+    <div class="photos">
+        @foreach ($tournament->photos as $photo)
+            <div class="photo">
+                <img src="{{ Storage::url($photo->path) }}" alt="Tournament photo">
+            </div>           
+        @endforeach
+    </div>    
 
     <h3>Rounds</h3>
 
