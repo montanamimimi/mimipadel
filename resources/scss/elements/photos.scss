@@ -1,10 +1,12 @@
+@use '../base' as *; 
+
 .photos {
 
     display: flex;
     flex-wrap: wrap;
+    gap: 10px;
 
-    .photo {
-        margin: 10px;
+    .photo {        
         img {
             max-width: 400px;
             max-height: 400px;
@@ -13,3 +15,18 @@
     }
 
 }
+
+@media (max-width: $mediaMobile) {
+    .photos {
+        flex-direction: column;
+        align-items: center;
+        .photo {
+            img {
+                //width: 100%;
+                max-width: 100%;
+                max-height: 400px;
+            }
+            
+        }            
+    }
+}  
