@@ -1,5 +1,5 @@
 @section('meta')
-    <meta property="og:title" content="{{ $tournament->name }}">
+    <meta property="og:title" content="Padel Wannabe Gold Tournament">
     <meta property="og:description" content="View tournament details on MimiPadel.">
     <meta property="og:image"
           content="{{ url(\Illuminate\Support\Facades\Storage::url($tournament->photos->first()->path ?? 'images/share-default.jpg')) }}">
