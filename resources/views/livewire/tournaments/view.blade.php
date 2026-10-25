@@ -5,10 +5,24 @@
         <div class="leaderboard">
             
             <div class="leaderboard__items">
+                <div class="leaderboard__item leaderboard__item--header">
+                    <div></div>
+                    <div class="leaderboard__scores">
+                        <div>
+                            <div>W-L-T</div>
+                        </div>      
+                        <div>Score</div>      
+                    </div>                       
+                </div>                
             @foreach ( $leaderboard as $key => $item )
                 <div class="leaderboard__item">
                     <div>{{ $key + 1}}. {{ $item['name'] }}</div>
-                    <div>{{ $item['score'] }}</div>                    
+                    <div class="leaderboard__scores">
+                        <div>
+                            <div>{{ $item['win'] }}-{{ $item['loss'] }}-{{ $item['tie'] }}</div>
+                        </div>      
+                        <div>{{ $item['score'] }}</div>      
+                    </div>                       
                 </div>
             @endforeach
             </div>

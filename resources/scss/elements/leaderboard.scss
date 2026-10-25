@@ -24,6 +24,19 @@
         &:hover {
             background-color: $lightGreen;
         }
+
+        &--header {
+            background-color: unset;
+            &:hover {
+                background-color: unset;
+            } 
+        }
+    }
+
+    &__scores {
+        display: flex;
+        gap: 24px;
+        font-size: 14px;
     }
 }
 

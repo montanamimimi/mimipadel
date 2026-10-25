@@ -8,6 +8,10 @@ use App\Models\Player;
 class PlayerController extends Controller
 {
 
+    public function index() {
+        return Player::all();
+    }
+
     public function create(Request $request) {
         $validated = $request->validate([
             'id' => ['required', 'string'],

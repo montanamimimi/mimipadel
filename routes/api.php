@@ -7,6 +7,7 @@ use App\Http\Controllers\TournamentController;
 use App\Http\Controllers\TournamentGameController;
 use App\Http\Controllers\TournamentPlayerController;
 use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\PlayerRatingHistoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Log;
 
@@ -25,8 +26,11 @@ Route::middleware('firebase')->group(function () {
     Route::post('/tournaments/{tournament}/players', [TournamentPlayerController::class, 'store']); 
     Route::delete('/tournaments/{tournament}/players/{player}', [TournamentPlayerController::class, 'destroy']);
 
+    Route::get('/players', [PlayerController::class, 'index']);
     Route::post('/players', [PlayerController::class, 'create']);
 
 });
+
+Route::get('/ratings', [PlayerRatingHistoryController::class, 'index']);
 
 
