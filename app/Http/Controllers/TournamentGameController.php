@@ -16,6 +16,8 @@ class TournamentGameController extends Controller
         $validated = $request->validate([
             'games' => ['required', 'array'],
         ]);
+        
+        TournamentGame::where('tournament_id', $tournament->id)->delete();
 
         DB::transaction(function () use ($tournament, $validated) {
             foreach ($validated['games'] as $game) {

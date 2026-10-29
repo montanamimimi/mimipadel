@@ -24,13 +24,15 @@ Route::middleware('firebase')->group(function () {
     Route::put('/tournaments/{tournament}/games/{game}', [TournamentGameController::class, 'update']);
 
     Route::post('/tournaments/{tournament}/players', [TournamentPlayerController::class, 'store']); 
+    Route::post('/tournaments/{tournament}/players/bulk', [TournamentPlayerController::class, 'storeBulk']); 
     Route::delete('/tournaments/{tournament}/players/{player}', [TournamentPlayerController::class, 'destroy']);
 
     Route::get('/players', [PlayerController::class, 'index']);
     Route::post('/players', [PlayerController::class, 'create']);
+    Route::get('/ratings', [PlayerRatingHistoryController::class, 'index']);
 
 });
 
-Route::get('/ratings', [PlayerRatingHistoryController::class, 'index']);
+
 
 

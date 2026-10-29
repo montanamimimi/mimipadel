@@ -4,11 +4,21 @@ namespace App\Services;
 
 use App\Models\TournamentGame;
 use App\Models\TournamentPlayer;
+use App\Models\Player;
 use App\Models\PlayerRatingHistory;
 use Illuminate\Support\Facades\Log;
 
 class RatingService
 {
+
+    public function createFirstRating(Player $player) {
+        PlayerRatingHistory::create([
+            'player_id' => $player->id,
+            'old_rating' => 1500,
+            'rating_change' => 0,
+            'new_rating' => 1500,
+        ]);        
+    }
 
     public function updateForGame(TournamentGame $game): void
     {
@@ -55,31 +65,27 @@ class RatingService
 
     public function updateForGames(TournamentGame $game): void
     {
-        $history = PlayerRatingHistory::where(
-            'tournament_game_id',
-            $game->id
-        )->first();
+
+        $history = PlayerRatingHistory::where('tournament_game_id', $game->id)
+            ->orderBy('created_at')
+            ->orderBy('id')
+            ->first();
 
         if ($history) {
-            PlayerRatingHistory::where(
-                'created_at',
-                '>=',
-                $history->created_at
-            )
-            ->whereNotNull('tournament_id')
-            ->delete();
+            PlayerRatingHistory::where('created_at', '>=', $history->created_at)
+                ->whereNotNull('tournament_id')
+                ->delete();
         }
 
-        $after = TournamentGame::where(
-            'created_at',
-            '>=',
-            $game->created_at
-        )
-        ->orderBy('created_at')
-        ->get();
+        $after = TournamentGame::where('created_at', '>=', $game->created_at)
+            ->orderBy('created_at')
+            ->orderBy('id')
+            ->get();
 
-        foreach ($after as $game) {
-            $this->updateForGame($game);
+       // $this->updateForGame($game); 
+
+        foreach ($after as $item) {
+            $this->updateForGame($item);
         }
     }
 

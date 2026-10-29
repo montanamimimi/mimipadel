@@ -33,13 +33,6 @@ class PlayerPage extends Component
             'name' => $this->name,
         ]);
 
-        PlayerRatingHistory::create([            
-            'player_id' => $player->id,            
-            'old_rating' => 1500,
-            'rating_change' => 0,
-            'new_rating' => 1500,
-        ]);
-
         return redirect()->route('players.index');
     }
 
