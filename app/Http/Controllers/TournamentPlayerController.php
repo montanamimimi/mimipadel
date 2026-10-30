@@ -25,7 +25,7 @@ class TournamentPlayerController extends Controller
                 ['id' => $player['player_id']],
                 ['name' => $player['name']],
             );
-        }
+        }        
 
         DB::transaction(function () use ($tournament, $validated) {
             foreach ($validated['players'] as $player) {
@@ -63,5 +63,11 @@ class TournamentPlayerController extends Controller
         return response()->json([
             'message' => 'Player deleted successfully',
         ]);
+    }    
+
+    public function destroyAll(Tournament $tournament)
+    {        
+        TournamentPlayer::where('tournament_id', $tournament->id)->delete();
+        return response()->json(['message' => 'Players deleted successfully']);
     }    
 }

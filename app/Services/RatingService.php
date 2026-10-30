@@ -98,6 +98,9 @@ class RatingService
         int $scoreB,
         )
     {
+        if (($scoreA + $scoreB) == 0) {
+            return 0;
+        }
         $teamA = $this->getTeamScore($ratingA, $ratingB);
         $teamB = $this->getTeamScore($ratingC, $ratingD);
 

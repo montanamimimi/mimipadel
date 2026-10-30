@@ -22,10 +22,12 @@ Route::middleware('firebase')->group(function () {
     
     Route::post('/tournaments/{tournament}/games/bulk', [TournamentGameController::class, 'storeBulk']);
     Route::put('/tournaments/{tournament}/games/{game}', [TournamentGameController::class, 'update']);
+    Route::delete('/tournaments/{tournament}/games', [TournamentGameController::class, 'destroyAll']);
 
     Route::post('/tournaments/{tournament}/players', [TournamentPlayerController::class, 'store']); 
     Route::post('/tournaments/{tournament}/players/bulk', [TournamentPlayerController::class, 'storeBulk']); 
     Route::delete('/tournaments/{tournament}/players/{player}', [TournamentPlayerController::class, 'destroy']);
+    Route::delete('/tournaments/{tournament}/players', [TournamentPlayerController::class, 'destroyAll']);
 
     Route::get('/players', [PlayerController::class, 'index']);
     Route::post('/players', [PlayerController::class, 'create']);

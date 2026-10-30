@@ -16,12 +16,14 @@ class TournamentGameController extends Controller
         $validated = $request->validate([
             'games' => ['required', 'array'],
         ]);
-        
-        TournamentGame::where('tournament_id', $tournament->id)->delete();
 
         DB::transaction(function () use ($tournament, $validated) {
             foreach ($validated['games'] as $game) {
-                TournamentGame::create($game);
+
+                if (($game['side_1_score'] + $game['side_2_score']) > 0) {
+                    TournamentGame::updateOrCreate(['id' => $game['id']], $game);
+                }
+                
             }
         });
 
@@ -42,5 +44,12 @@ class TournamentGameController extends Controller
         $game->update($validated);
 
         return response()->json($game);
+    }    
+
+    public function destroyAll(Tournament $tournament)
+    {
+        TournamentGame::where('tournament_id', $tournament->id)->delete();
+        
+        return response()->json(['message' => 'Games deleted successfully']);
     }    
 }
